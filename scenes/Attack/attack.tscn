@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://d05ft7d06mauu"]
+
+[ext_resource type="Script" path="res://Attack.gd" id="1_eo70i"]
+
+[node name="Attack" type="Node2D"]
+script = ExtResource("1_eo70i")
+
+[node name="bulletTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+autostart = true
+
+[node name="bulletAtkTimer" type="Timer" parent="bulletTimer"]
+unique_name_in_owner = true
+autostart = true
+
+[connection signal="timeout" from="bulletTimer" to="." method="_on_bullet_timer_timeout"]
+[connection signal="timeout" from="bulletTimer/bulletAtkTimer" to="." method="_on_bullet_atk_timer_timeout"]

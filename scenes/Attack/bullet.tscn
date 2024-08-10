@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2mlt2461pb35"]
+
+[ext_resource type="Script" path="res://scenes/Attack/bullet.gd" id="1_bivum"]
+[ext_resource type="Texture2D" uid="uid://nmknpt7hl4sb" path="res://icon.svg" id="1_lqlw8"]
+[ext_resource type="PackedScene" uid="uid://c8225n835xmdp" path="res://scenes/utility/HitBox.tscn" id="3_vg3d3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7ifs4"]
+radius = 15.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t8wgp"]
+size = Vector2(28, 30)
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_bivum")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7ifs4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.242188, 0.25)
+texture = ExtResource("1_lqlw8")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="HitBox" parent="." groups=["bullet"] instance=ExtResource("3_vg3d3")]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+shape = SubResource("RectangleShape2D_t8wgp")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
+[editable path="HitBox"]

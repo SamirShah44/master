@@ -1,0 +1,84 @@
+[gd_scene load_steps=11 format=3 uid="uid://xc78xqns80ej"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_cuvac"]
+[ext_resource type="Texture2D" uid="uid://nmknpt7hl4sb" path="res://icon.svg" id="1_xcl5j"]
+[ext_resource type="PackedScene" uid="uid://c8225n835xmdp" path="res://scenes/utility/HitBox.tscn" id="3_crgg4"]
+[ext_resource type="PackedScene" uid="uid://bw6ei0umvxfbj" path="res://scenes/utility/HurtBox.tscn" id="4_v8hau"]
+[ext_resource type="PackedScene" uid="uid://d05ft7d06mauu" path="res://scenes/Attack/attack.tscn" id="5_b6ciw"]
+[ext_resource type="PackedScene" uid="uid://cdudbmaoaoulx" path="res://scenes/utility/gui_layer.tscn" id="6_4uw5e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jol6c"]
+radius = 41.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_io3y7"]
+radius = 64.6607
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1a6nq"]
+radius = 66.0379
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_to1lv"]
+radius = 669.001
+
+[node name="player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 4
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_cuvac")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.499999, 4.5)
+scale = Vector2(0.914062, 0.742188)
+texture = ExtResource("1_xcl5j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 9)
+shape = SubResource("CircleShape2D_jol6c")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+visible = false
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="HurtBox" parent="." instance=ExtResource("4_v8hau")]
+visible = false
+collision_layer = 4
+collision_mask = 2
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(-2, 6)
+shape = SubResource("CircleShape2D_io3y7")
+
+[node name="HitBox" parent="." instance=ExtResource("3_crgg4")]
+unique_name_in_owner = true
+visible = false
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+shape = SubResource("CircleShape2D_1a6nq")
+
+[node name="enemyDetectionArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemyDetectionArea"]
+shape = SubResource("CircleShape2D_to1lv")
+
+[node name="Attack" parent="." instance=ExtResource("5_b6ciw")]
+unique_name_in_owner = true
+
+[node name="GuiLayer" parent="." instance=ExtResource("6_4uw5e")]
+
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+[connection signal="body_entered" from="enemyDetectionArea" to="." method="_on_enemy_detection_area_body_entered"]
+[connection signal="body_exited" from="enemyDetectionArea" to="." method="_on_enemy_detection_area_body_exited"]
+
+[editable path="HurtBox"]
+[editable path="HitBox"]
+[editable path="Attack"]
+[editable path="GuiLayer"]

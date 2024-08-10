@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0ice2mjx5ef6"]
+
+[ext_resource type="PackedScene" uid="uid://xc78xqns80ej" path="res://scenes/player/player.tscn" id="1_h8a0n"]
+[ext_resource type="PackedScene" uid="uid://coff8y6770p8q" path="res://scenes/Enemy/enemy.tscn" id="2_4q5xr"]
+[ext_resource type="PackedScene" uid="uid://bdgwfrpul2iqb" path="res://scenes/utility/enemy_spwaner.tscn" id="3_1vj3v"]
+[ext_resource type="Script" path="res://scenes/utility/Spwan_info.gd" id="4_b78mj"]
+
+[sub_resource type="Resource" id="Resource_s3ln1"]
+script = ExtResource("4_b78mj")
+TimeStart = 0
+timeEnd = 20
+enemy = ExtResource("2_4q5xr")
+enemy_num = 1
+enemy_spwan_delay = 1
+
+[node name="World" type="Node2D"]
+
+[node name="player" parent="." instance=ExtResource("1_h8a0n")]
+position = Vector2(249, 172)
+
+[node name="Enemy" parent="." instance=ExtResource("2_4q5xr")]
+position = Vector2(79, -97)
+
+[node name="enemy_spwaner" parent="." instance=ExtResource("3_1vj3v")]
+spwans = Array[ExtResource("4_b78mj")]([SubResource("Resource_s3ln1")])

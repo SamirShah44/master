@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cdudbmaoaoulx"]
+
+[node name="GuiLayer" type="CanvasLayer"]
+
+[node name="gui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="lblTImer" type="Label" parent="gui"]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 2.0
+offset_right = 553.0
+offset_bottom = 25.0
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
