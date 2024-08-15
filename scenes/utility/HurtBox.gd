@@ -6,7 +6,7 @@ extends Area2D
 @export_enum("Cooldown" , "HitOnce" , "DisableHitBox") var HurtBoxType = 0
 signal hurt(damage)
 
-func _on_area_entered(area):
+func _on_area_entered(area)->void:
 	if area.is_in_group("attack"):
 		if not area.get("damage") == null:
 			match HurtBoxType:
@@ -22,5 +22,5 @@ func _on_area_entered(area):
 			emit_signal("hurt",damage)
 
 
-func _on_timer_timeout():
+func _on_timer_timeout()->void:
 	collision.call_deferred("set","disabled",false)

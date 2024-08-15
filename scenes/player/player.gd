@@ -5,10 +5,11 @@ extends CharacterBody2D
 @export var Damage :int= 2
 
 @onready var hitBox = $HitBox
-@onready var bullet = "res://scenes/Attack/bullet.tscn"
+#@onready var bullet = "res://scenes/Attack/bullet.tscn"
 @onready var atk = %Attack
 var enemy_closed=[]
 
+#var vpr = get_viewport_rect().size 
 
 #gui layer
 @onready var lblTimer = $GuiLayer/gui/lblTImer
@@ -29,17 +30,17 @@ func get_input() -> void:
 	velocity = input_direction * SPEED
 
 
-func _on_hurt_box_hurt(damage):
+func _on_hurt_box_hurt(damage) ->void:
 	Hp -= damage
 	print(Hp)
 
-func _on_enemy_detection_area_body_entered(body):
+func _on_enemy_detection_area_body_entered(body)->void:
 	if not enemy_closed.has(body):
 		enemy_closed.append(body)
 		
 
 
-func _on_enemy_detection_area_body_exited(body):
+func _on_enemy_detection_area_body_exited(body)->void:
 	if enemy_closed.has(body):
 		enemy_closed.erase(body)
 

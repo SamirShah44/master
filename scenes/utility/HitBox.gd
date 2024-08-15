@@ -10,6 +10,6 @@ func tempDisable()->void:
 	
 
 
-func _on_timer_timeout():
+func _on_timer_timeout()->void:
 	collision.call_deferred("set","disabled",false)
 	

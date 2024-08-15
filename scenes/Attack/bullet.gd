@@ -16,6 +16,7 @@ var angle :Vector2= Vector2.ZERO
 
 @onready var hitBox= $HitBox
 @onready var player = get_tree().get_first_node_in_group("player")
+@onready var meteor = get_tree().get_first_node_in_group("meteor")
 
 func _ready():
 	hitBox.damage = damage
@@ -29,8 +30,25 @@ func _ready():
 	tween.play()
 	
 func _physics_process(delta):
+	if(hp<1):
+		queue_free()
 	position += angle * speed*delta
 
 
-func _on_timer_timeout():
+func _on_timer_timeout()->void:
 	queue_free()
+
+
+func _on_visible_on_screen_enabler_2d_screen_exited() ->void:
+	visible=false
+
+
+func _on_body_entered(body):
+	if(body == player):
+		hp-=1
+	if(body == meteor):
+		hp -=1
+
+func _on_area_entered(area):
+	if(area == meteor):
+		hp-=1;

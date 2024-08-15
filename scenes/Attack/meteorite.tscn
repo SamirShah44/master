@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://cuu2nbmfddw5w"]
+
+[ext_resource type="Script" path="res://scenes/Attack/meteorite.gd" id="1_24mtc"]
+[ext_resource type="Texture2D" uid="uid://nmknpt7hl4sb" path="res://icon.svg" id="1_52wo3"]
+[ext_resource type="PackedScene" uid="uid://c8225n835xmdp" path="res://scenes/utility/HitBox.tscn" id="2_h0opf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ilji5"]
+size = Vector2(5, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_me07l"]
+size = Vector2(122, 120)
+
+[node name="Meteorite" type="Area2D" groups=["meteor"]]
+z_index = 1
+scale = Vector2(0.5, 0.5)
+collision_layer = 12
+collision_mask = 18
+input_pickable = false
+script = ExtResource("1_24mtc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1.5, -3.5)
+shape = SubResource("RectangleShape2D_ilji5")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_52wo3")
+
+[node name="HitBox" parent="." instance=ExtResource("2_h0opf")]
+collision_layer = 12
+collision_mask = 18
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(2, -2)
+shape = SubResource("RectangleShape2D_me07l")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 6.0
+one_shot = true
+autostart = true
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]
+
+[editable path="HitBox"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d05ft7d06mauu"]
 
-[ext_resource type="Script" path="res://Attack.gd" id="1_eo70i"]
+[ext_resource type="Script" path="res://scenes/Attack/Attack.gd" id="1_eo70i"]
 
 [node name="Attack" type="Node2D"]
 script = ExtResource("1_eo70i")
@@ -11,7 +11,20 @@ autostart = true
 
 [node name="bulletAtkTimer" type="Timer" parent="bulletTimer"]
 unique_name_in_owner = true
+wait_time = 0.2
+autostart = true
+
+[node name="meteorTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
+autostart = true
+
+[node name="MeteorAtkTimer" type="Timer" parent="meteorTimer"]
+unique_name_in_owner = true
+wait_time = 0.75
 autostart = true
 
 [connection signal="timeout" from="bulletTimer" to="." method="_on_bullet_timer_timeout"]
 [connection signal="timeout" from="bulletTimer/bulletAtkTimer" to="." method="_on_bullet_atk_timer_timeout"]
+[connection signal="timeout" from="meteorTimer" to="." method="_on_meteor_timer_timeout"]
+[connection signal="timeout" from="meteorTimer/MeteorAtkTimer" to="." method="_on_meteor_atk_timer_timeout"]

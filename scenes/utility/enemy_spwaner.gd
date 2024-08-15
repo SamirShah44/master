@@ -12,7 +12,7 @@ func _ready():
 
 
 
-func _on_timer_timeout():
+func _on_timer_timeout()->void:
 	time += 1
 	var enemy_spwans = spwans
 	for i in enemy_spwans:
