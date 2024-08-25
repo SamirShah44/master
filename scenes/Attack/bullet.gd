@@ -46,9 +46,11 @@ func _on_visible_on_screen_enabler_2d_screen_exited() ->void:
 func _on_body_entered(body):
 	if(body == player):
 		hp-=1
-	if(body == meteor):
-		hp -=1
 
 func _on_area_entered(area):
 	if(area == meteor):
 		hp-=1;
+
+
+func _on_hurt_box_hurt(damage):
+	hp-=1

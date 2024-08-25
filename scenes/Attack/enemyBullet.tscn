@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b23j0av4q27cm"]
+[gd_scene load_steps=8 format=3 uid="uid://b23j0av4q27cm"]
 
 [ext_resource type="Script" path="res://scenes/Attack/bullet.gd" id="1_uudic"]
 [ext_resource type="Texture2D" uid="uid://nmknpt7hl4sb" path="res://icon.svg" id="2_slmn3"]
 [ext_resource type="PackedScene" uid="uid://c8225n835xmdp" path="res://scenes/utility/HitBox.tscn" id="3_1rc4c"]
+[ext_resource type="PackedScene" uid="uid://bw6ei0umvxfbj" path="res://scenes/utility/HurtBox.tscn" id="4_n3nvl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7ifs4"]
 radius = 15.0
@@ -10,9 +11,12 @@ radius = 15.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t8wgp"]
 size = Vector2(28, 30)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_puwgk"]
+size = Vector2(28, 30)
+
 [node name="enemyBullet" type="Area2D"]
 modulate = Color(0.362961, 0.71042, 0.000486698, 1)
-collision_layer = 16
+collision_layer = 18
 collision_mask = 12
 script = ExtResource("1_uudic")
 
@@ -30,7 +34,7 @@ autostart = true
 
 [node name="HitBox" parent="." groups=["bullet"] instance=ExtResource("3_1rc4c")]
 visible = false
-collision_layer = 16
+collision_layer = 18
 collision_mask = 12
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
@@ -38,9 +42,18 @@ shape = SubResource("RectangleShape2D_t8wgp")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
 
+[node name="HurtBox" parent="." instance=ExtResource("4_n3nvl")]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource("RectangleShape2D_puwgk")
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
 
 [editable path="HitBox"]
+[editable path="HurtBox"]

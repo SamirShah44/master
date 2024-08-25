@@ -24,7 +24,28 @@ unique_name_in_owner = true
 wait_time = 0.75
 autostart = true
 
+[node name="RotatingAtk" type="Node2D" parent="."]
+
+[node name="ShootTimer" type="Timer" parent="RotatingAtk"]
+wait_time = 5.0
+autostart = true
+
+[node name="Rotater" type="Node2D" parent="RotatingAtk"]
+
+[node name="rotatingTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 3.0
+autostart = true
+
+[node name="rotatingAtkTimer" type="Timer" parent="rotatingTimer"]
+unique_name_in_owner = true
+wait_time = 0.5
+autostart = true
+
 [connection signal="timeout" from="bulletTimer" to="." method="_on_bullet_timer_timeout"]
 [connection signal="timeout" from="bulletTimer/bulletAtkTimer" to="." method="_on_bullet_atk_timer_timeout"]
 [connection signal="timeout" from="meteorTimer" to="." method="_on_meteor_timer_timeout"]
 [connection signal="timeout" from="meteorTimer/MeteorAtkTimer" to="." method="_on_meteor_atk_timer_timeout"]
+[connection signal="timeout" from="RotatingAtk/ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="rotatingTimer" to="." method="_on_rotating_timer_timeout"]
+[connection signal="timeout" from="rotatingTimer/rotatingAtkTimer" to="." method="_on_rotating_atk_timer_timeout"]
