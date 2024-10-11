@@ -17,11 +17,15 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Atk="*res://scenes/Attack/atk.gd"
+WorldSave="*res://SaveWorld.gd"
+NoiseGen="*res://chunk system/NoiseGen.gd"
+UpgradeDb="*res://upgradeDB.gd"
 
 [display]
 
+window/size/resizable=false
 window/size/always_on_top=true
+window/stretch/scale=0.5
 
 [editor]
 
@@ -50,6 +54,11 @@ right={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":100,"echo":false,"script":null)
 ]
 }
+click={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(178, 14),"global_position":Vector2(182, 55),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -57,6 +66,7 @@ right={
 2d_physics/layer_3="Player"
 2d_physics/layer_4="projectile"
 2d_physics/layer_5="enemyProjectile"
+2d_physics/layer_6="loot"
 
 [rendering]
 
